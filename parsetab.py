@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'leftPLUSMINUSleftTIMESDIVIDErightUMINUSASSIGN COMMA DIVIDE ID INT LBRACE LPAREN MINUS NUMBER PLUS PRINT RBRACE RETURN RPAREN SEMI TIMESprogram : functionsfunctions : functions function\n                 | functionfunction : INT ID LPAREN params RPAREN blockparams : param_list\n              | emptyparam_list : param_list COMMA param\n                  | paramparam : INT IDblock : LBRACE declarations statements RBRACEdeclarations : declarations declaration\n                    | emptydeclaration : INT ID ASSIGN expression SEMI\n                   | INT ID SEMIstatements : statements statement\n                  | emptystatement : ID ASSIGN expression SEMIstatement : PRINT LPAREN ID RPAREN SEMIstatement : RETURN expression SEMIexpression : expression PLUS expression\n                  | expression MINUS expression\n                  | expression TIMES expression\n                  | expression DIVIDE expressionexpression : LPAREN expression RPARENexpression : NUMBERexpression : IDexpression : MINUS expression %prec UMINUSempty :'
+_lr_signature = 'leftPLUSMINUSleftTIMESDIVIDEASSIGN COMMA DIVIDE ID INT LBRACE LPAREN MINUS NUMBER PLUS PRINT RBRACE RETURN RPAREN SEMI TIMESprogram : function_listfunction_list : function_list function\n\t\t\t\t\t | functionfunction : INT ID LPAREN params RPAREN LBRACE declarations statements RBRACEparams : param_list\n\t\t\t  | emptyparam_list : param_list COMMA param\n\t\t\t\t  | paramparam : INT IDdeclarations : declarations declaration\n\t\t\t\t\t| emptydeclaration : INT ID ASSIGN expression SEMI\n\t\t\t\t   | INT ID SEMIstatements : statements statement\n\t\t\t\t  | emptystatement : ID ASSIGN expression SEMI\n\t\t\t\t| PRINT LPAREN expression RPAREN SEMIstatement : RETURN expression SEMIexpression : expression PLUS expression\n\t\t\t\t  | expression MINUS expression\n\t\t\t\t  | expression TIMES expression\n\t\t\t\t  | expression DIVIDE expressionexpression : LPAREN expression RPARENexpression : NUMBERexpression : IDexpression : ID LPAREN arguments RPARENarguments : arguments COMMA expression\n\t\t\t\t| expressionempty :'
     
-_lr_action_items = {'INT':([0,2,3,5,7,15,16,17,19,20,22,25,39,57,],[4,4,-3,-2,8,8,-4,-28,24,-12,-11,-10,-14,-13,]),'$end':([1,2,3,5,16,25,],[0,-1,-3,-2,-4,-10,]),'ID':([4,8,17,19,20,21,22,23,24,26,29,31,32,34,35,38,39,42,43,44,45,46,50,57,58,],[6,13,-28,-28,-12,27,-11,-16,30,-15,37,37,41,37,37,37,-14,-19,37,37,37,37,-17,-13,-18,]),'LPAREN':([6,28,29,31,34,35,38,43,44,45,46,],[7,32,35,35,35,35,35,35,35,35,35,]),'RPAREN':([7,9,10,11,12,13,18,36,37,41,47,48,52,53,54,55,56,],[-28,14,-5,-6,-8,-9,-7,-25,-26,51,-27,56,-20,-21,-22,-23,-24,]),'COMMA':([10,12,13,18,],[15,-8,-9,-7,]),'LBRACE':([14,],[17,]),'RBRACE':([17,19,20,21,22,23,26,39,42,50,57,58,],[-28,-28,-12,25,-11,-16,-15,-14,-19,-17,-13,-18,]),'PRINT':([17,19,20,21,22,23,26,39,42,50,57,58,],[-28,-28,-12,28,-11,-16,-15,-14,-19,-17,-13,-18,]),'RETURN':([17,19,20,21,22,23,26,39,42,50,57,58,],[-28,-28,-12,29,-11,-16,-15,-14,-19,-17,-13,-18,]),'ASSIGN':([27,30,],[31,38,]),'NUMBER':([29,31,34,35,38,43,44,45,46,],[36,36,36,36,36,36,36,36,36,]),'MINUS':([29,31,33,34,35,36,37,38,40,43,44,45,46,47,48,49,52,53,54,55,56,],[34,34,44,34,34,-25,-26,34,44,34,34,34,34,-27,44,44,-20,-21,-22,-23,-24,]),'SEMI':([30,33,36,37,40,47,49,51,52,53,54,55,56,],[39,42,-25,-26,50,-27,57,58,-20,-21,-22,-23,-24,]),'PLUS':([33,36,37,40,47,48,49,52,53,54,55,56,],[43,-25,-26,43,-27,43,43,-20,-21,-22,-23,-24,]),'TIMES':([33,36,37,40,47,48,49,52,53,54,55,56,],[45,-25,-26,45,-27,45,45,45,45,-22,-23,-24,]),'DIVIDE':([33,36,37,40,47,48,49,52,53,54,55,56,],[46,-25,-26,46,-27,46,46,46,46,-22,-23,-24,]),}
+_lr_action_items = {'INT':([0,2,3,5,7,15,16,18,19,22,26,31,48,],[4,4,-3,-2,8,8,-29,20,-11,-10,-4,-13,-12,]),'$end':([1,2,3,5,26,],[0,-1,-3,-2,-4,]),'ID':([4,8,16,18,19,20,21,22,23,27,29,30,31,32,33,35,41,42,43,44,45,47,48,49,58,60,],[6,13,-29,-29,-11,24,25,-10,-15,-14,37,37,-13,37,37,37,-18,37,37,37,37,37,-12,-16,-17,37,]),'LPAREN':([6,28,29,30,32,33,35,37,42,43,44,45,47,60,],[7,33,35,35,35,35,35,47,35,35,35,35,35,35,]),'RPAREN':([7,9,10,11,12,13,17,36,37,40,46,51,52,53,54,55,56,57,59,61,],[-29,14,-5,-6,-8,-9,-7,-24,-25,50,55,-19,-20,-21,-22,-23,59,-28,-26,-27,]),'COMMA':([10,12,13,17,36,37,51,52,53,54,55,56,57,59,61,],[15,-8,-9,-7,-24,-25,-19,-20,-21,-22,-23,60,-28,-26,-27,]),'LBRACE':([14,],[16,]),'RBRACE':([16,18,19,21,22,23,27,31,41,48,49,58,],[-29,-29,-11,26,-10,-15,-14,-13,-18,-12,-16,-17,]),'PRINT':([16,18,19,21,22,23,27,31,41,48,49,58,],[-29,-29,-11,28,-10,-15,-14,-13,-18,-12,-16,-17,]),'RETURN':([16,18,19,21,22,23,27,31,41,48,49,58,],[-29,-29,-11,29,-10,-15,-14,-13,-18,-12,-16,-17,]),'ASSIGN':([24,25,],[30,32,]),'SEMI':([24,34,36,37,38,39,50,51,52,53,54,55,59,],[31,41,-24,-25,48,49,58,-19,-20,-21,-22,-23,-26,]),'NUMBER':([29,30,32,33,35,42,43,44,45,47,60,],[36,36,36,36,36,36,36,36,36,36,36,]),'PLUS':([34,36,37,38,39,40,46,51,52,53,54,55,57,59,61,],[42,-24,-25,42,42,42,42,-19,-20,-21,-22,-23,42,-26,42,]),'MINUS':([34,36,37,38,39,40,46,51,52,53,54,55,57,59,61,],[43,-24,-25,43,43,43,43,-19,-20,-21,-22,-23,43,-26,43,]),'TIMES':([34,36,37,38,39,40,46,51,52,53,54,55,57,59,61,],[44,-24,-25,44,44,44,44,44,44,-21,-22,-23,44,-26,44,]),'DIVIDE':([34,36,37,38,39,40,46,51,52,53,54,55,57,59,61,],[45,-24,-25,45,45,45,45,45,45,-21,-22,-23,45,-26,45,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'program':([0,],[1,]),'functions':([0,],[2,]),'function':([0,2,],[3,5,]),'params':([7,],[9,]),'param_list':([7,],[10,]),'empty':([7,17,19,],[11,20,23,]),'param':([7,15,],[12,18,]),'block':([14,],[16,]),'declarations':([17,],[19,]),'statements':([19,],[21,]),'declaration':([19,],[22,]),'statement':([21,],[26,]),'expression':([29,31,34,35,38,43,44,45,46,],[33,40,47,48,49,52,53,54,55,]),}
+_lr_goto_items = {'program':([0,],[1,]),'function_list':([0,],[2,]),'function':([0,2,],[3,5,]),'params':([7,],[9,]),'param_list':([7,],[10,]),'empty':([7,16,18,],[11,19,23,]),'param':([7,15,],[12,17,]),'declarations':([16,],[18,]),'statements':([18,],[21,]),'declaration':([18,],[22,]),'statement':([21,],[27,]),'expression':([29,30,32,33,35,42,43,44,45,47,60,],[34,38,39,40,46,51,52,53,54,57,61,]),'arguments':([47,],[56,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -27,32 +27,33 @@ for _k, _v in _lr_goto_items.items():
 del _lr_goto_items
 _lr_productions = [
   ("S' -> program","S'",1,None,None,None),
-  ('program -> functions','program',1,'p_program','tac.py',77),
-  ('functions -> functions function','functions',2,'p_functions','tac.py',81),
-  ('functions -> function','functions',1,'p_functions','tac.py',82),
-  ('function -> INT ID LPAREN params RPAREN block','function',6,'p_function','tac.py',86),
-  ('params -> param_list','params',1,'p_params','tac.py',92),
-  ('params -> empty','params',1,'p_params','tac.py',93),
-  ('param_list -> param_list COMMA param','param_list',3,'p_param_list','tac.py',97),
-  ('param_list -> param','param_list',1,'p_param_list','tac.py',98),
-  ('param -> INT ID','param',2,'p_param','tac.py',102),
-  ('block -> LBRACE declarations statements RBRACE','block',4,'p_block','tac.py',106),
-  ('declarations -> declarations declaration','declarations',2,'p_declarations','tac.py',110),
-  ('declarations -> empty','declarations',1,'p_declarations','tac.py',111),
-  ('declaration -> INT ID ASSIGN expression SEMI','declaration',5,'p_declaration','tac.py',117),
-  ('declaration -> INT ID SEMI','declaration',3,'p_declaration','tac.py',118),
-  ('statements -> statements statement','statements',2,'p_statements','tac.py',127),
-  ('statements -> empty','statements',1,'p_statements','tac.py',128),
-  ('statement -> ID ASSIGN expression SEMI','statement',4,'p_statement_expr','tac.py',134),
-  ('statement -> PRINT LPAREN ID RPAREN SEMI','statement',5,'p_statement_print','tac.py',140),
-  ('statement -> RETURN expression SEMI','statement',3,'p_statement_return','tac.py',144),
-  ('expression -> expression PLUS expression','expression',3,'p_expression_binop','tac.py',149),
-  ('expression -> expression MINUS expression','expression',3,'p_expression_binop','tac.py',150),
-  ('expression -> expression TIMES expression','expression',3,'p_expression_binop','tac.py',151),
-  ('expression -> expression DIVIDE expression','expression',3,'p_expression_binop','tac.py',152),
-  ('expression -> LPAREN expression RPAREN','expression',3,'p_expression_group','tac.py',169),
-  ('expression -> NUMBER','expression',1,'p_expression_number','tac.py',173),
-  ('expression -> ID','expression',1,'p_expression_id','tac.py',179),
-  ('expression -> MINUS expression','expression',2,'p_expression_uminus','tac.py',183),
-  ('empty -> <empty>','empty',0,'p_empty','tac.py',195),
+  ('program -> function_list','program',1,'p_program','tac.py',90),
+  ('function_list -> function_list function','function_list',2,'p_function_list','tac.py',95),
+  ('function_list -> function','function_list',1,'p_function_list','tac.py',96),
+  ('function -> INT ID LPAREN params RPAREN LBRACE declarations statements RBRACE','function',9,'p_function','tac.py',104),
+  ('params -> param_list','params',1,'p_params','tac.py',110),
+  ('params -> empty','params',1,'p_params','tac.py',111),
+  ('param_list -> param_list COMMA param','param_list',3,'p_param_list','tac.py',116),
+  ('param_list -> param','param_list',1,'p_param_list','tac.py',117),
+  ('param -> INT ID','param',2,'p_param','tac.py',124),
+  ('declarations -> declarations declaration','declarations',2,'p_declarations','tac.py',128),
+  ('declarations -> empty','declarations',1,'p_declarations','tac.py',129),
+  ('declaration -> INT ID ASSIGN expression SEMI','declaration',5,'p_declaration','tac.py',133),
+  ('declaration -> INT ID SEMI','declaration',3,'p_declaration','tac.py',134),
+  ('statements -> statements statement','statements',2,'p_statements','tac.py',141),
+  ('statements -> empty','statements',1,'p_statements','tac.py',142),
+  ('statement -> ID ASSIGN expression SEMI','statement',4,'p_statement_expr','tac.py',146),
+  ('statement -> PRINT LPAREN expression RPAREN SEMI','statement',5,'p_statement_expr','tac.py',147),
+  ('statement -> RETURN expression SEMI','statement',3,'p_statement_return','tac.py',158),
+  ('expression -> expression PLUS expression','expression',3,'p_expression_binop','tac.py',162),
+  ('expression -> expression MINUS expression','expression',3,'p_expression_binop','tac.py',163),
+  ('expression -> expression TIMES expression','expression',3,'p_expression_binop','tac.py',164),
+  ('expression -> expression DIVIDE expression','expression',3,'p_expression_binop','tac.py',165),
+  ('expression -> LPAREN expression RPAREN','expression',3,'p_expression_group','tac.py',174),
+  ('expression -> NUMBER','expression',1,'p_expression_number','tac.py',178),
+  ('expression -> ID','expression',1,'p_expression_id','tac.py',184),
+  ('expression -> ID LPAREN arguments RPAREN','expression',4,'p_expression_call','tac.py',188),
+  ('arguments -> arguments COMMA expression','arguments',3,'p_arguments','tac.py',199),
+  ('arguments -> expression','arguments',1,'p_arguments','tac.py',200),
+  ('empty -> <empty>','empty',0,'p_empty','tac.py',207),
 ]

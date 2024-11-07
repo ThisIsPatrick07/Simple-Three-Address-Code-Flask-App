@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Three Address Code Generator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='/style.css') }}">
+
+</head>
+<body>
+    <div class="container">
+        <h1>Three Address Code Generator</h1>
+        <form action="/generate" method="POST">
+            <label for="code"></label>
+            <textarea name="code" id="code" rows="10" placeholder="Write your C language code here..."></textarea>
+            <button type="submit">Generate TAC</button>
+        </form>
+    </div>
+</body>
+</html>
