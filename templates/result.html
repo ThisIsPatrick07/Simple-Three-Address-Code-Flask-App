@@ -3,30 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Generated TAC</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='/style.css') }}">
+    <title>Three Address Code</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="container">
-        <h1>Generated Three Address Code</h1>
-		<table>
-			<tr>
-				<th class="table__header" >#</th>
-				{% for heading in headings %}
-				<th class="table__header">{{ heading }}</th>
-				{% endfor %}
-			</tr>
-			
-			{% for idx in range(tac_code|length) %}
-			<tr>
-				<td class="table__cell" >({{idx}})</td>
-				{% for value in tac_code[idx] %}
-				<td class="table__cell">{{ value }}</td>
-				{% endfor %}
-			</tr>
+    <h1>{{ format_type }} Code</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                {% for heading in headings %}
+                    <th>{{ heading }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+			{% for row in tac_code %}
+				<tr>
+					{% for cell in row %}
+						<td>{{ cell }}</td>
+					{% endfor %}
+				</tr>
 			{% endfor %}
-		</table>
-        <a href="/">Back to Home</a>
-    </div>
+        </tbody>
+    </table>
+    
+    <!-- Return to Home Button -->
+    <a href="/" class="return-home">Return to Home</a>
 </body>
 </html>

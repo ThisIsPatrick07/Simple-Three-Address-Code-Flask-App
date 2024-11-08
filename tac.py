@@ -93,7 +93,7 @@ def p_program(p):
 
 def p_function_list(p):
 	'''function_list : function_list function
-					 | function'''
+		function_list : function'''
 	if len(p) == 3:
 		p[0] = p[1] + p[2]
 	else:
@@ -214,34 +214,68 @@ def p_error(p):
 
 parser = yacc.yacc()
 
-def get_rows(tac):
-	celldata = []
+def is_temp_var(val):
+	if (type(val) == type('nice')) and (len(val) > 1) and (val[0] == 't') and (val[1].isdigit()):
+		return val[1]
+
+def get_rows(tac, code_type):
+	quad_celldata = []
 	values = list(tac.values())
 	m, n = len(values), len(values[0])
-	
+
 	for j in range(n):
 		row = []
 		for i in range(m):
 			val = values[i][j] if values[i][j] != None else ""
 			row.append(val)
-		celldata.append(row)
+		quad_celldata.append(row)
 	
-	return celldata
+	tri_celldata = []
+	if code_type == 'tri':
+		for j in range(n): 
+			row = []	
+			# this time we have to leave out the results heading
+			for i in range(m-1):
+				val = values[i][j] if values[i][j] != None else ""
+				
+				if (i > 0) and (num := is_temp_var(val)):
+					print('here')
+					val = f'({num})'
+				row.append(val)
+			tri_celldata.append(row)
+
+		return tri_celldata
+
+	else: # return 
+		return quad_celldata
+
 
 @app.route('/')
 def home():
-	return render_template('index.html')
+    return render_template('index.html')
+
 
 @app.route('/generate', methods=['POST'])
-def generate_tac():
+def generate_code():
 	if request.method == 'POST':
 		code = request.form['code']
+		code_type = request.form['code_type'] 
+        
 		tac_code.clear()
-		parser.parse(code)
-
-		celldata = get_rows(tac_code)
 		
-		return render_template('result.html', headings=list(tac_code.keys()), tac_code=celldata)
+		parser.parse(code)
+		
+		print("TAC Code:", tac_code)
+		celldata = get_rows(tac_code, code_type) 
 
-if __name__ == '_main_':
-	app.run(debug=True)
+		print(f"{code_type.upper()} Data:", celldata)
+		
+		headings = list(tac_code.keys())
+		if code_type == 'tri':
+			headings = headings[:-1]
+		
+		return render_template('result.html', headings=headings, tac_code=celldata, format_type='Triplet' if code_type == 'tri' else 'Quadruple')
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
